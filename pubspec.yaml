@@ -14,7 +14,7 @@ dependencies:
   flutter:
     sdk: flutter
   altogic_dart:
-    path: ../altogic-dart
+    git: https://github.com/altogic/altogic-dart
 
 dev_dependencies:
   flutter_test:
