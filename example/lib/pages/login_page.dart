@@ -1,7 +1,5 @@
 import 'package:altogic_flutter/altogic_flutter.dart';
 import 'package:example/helpers/altogic_helper.dart';
-import 'package:example/main.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -151,7 +149,6 @@ class _LoginPageState extends AltogicAuthState<LoginPage> {
                       child: InkWell(
                         onTap: () async {
                           await helper.auth.signOutAll();
-
                           helper.auth.signInWithProviderFlutter('google');
                         },
                         child: Padding(

@@ -25,14 +25,6 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  /// dart native (sadece link verebiliriz)
-  ///
-  /// dart webdev (npm ile aynı.)
-  ///
-  /// flutter io (url_l , "adi/mm")
-  ///
-  ///
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(

@@ -1,8 +1,5 @@
 library altogic_flutter;
 
-import 'package:altogic_dart/altogic_dart.dart';
-import 'package:flutter/widgets.dart';
-
 export 'package:altogic_dart/altogic_dart.dart'
     hide createClient, AltogicClient;
 export 'src/auth_provider.dart';

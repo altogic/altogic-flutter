@@ -1,5 +1,4 @@
 import 'package:altogic_flutter/altogic_flutter.dart';
-import 'package:example/main.dart';
 
 class AltogicHelper {
   factory AltogicHelper() => _instance;
