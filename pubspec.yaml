@@ -7,7 +7,7 @@ environment:
   sdk: '>=2.17.0 <3.0.0'
 
 dependencies:
-  altogic_dart: ^0.0.3+2
+  altogic_dart: ^0.0.3+3
   shared_preferences: ^2.0.15
   url_launcher: ^6.1.5
   uni_links: ^0.5.1
