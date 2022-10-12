@@ -1,15 +1,14 @@
 name: altogic_flutter
 description: Altogic Flutter Client Implementation
-version: 0.0.1
-publish_to: none
-
+homepage:
+version: 0.0.2
 environment:
   sdk: '>=2.17.0 <3.0.0'
 
 dependencies:
-  altogic_dart: ^0.0.3+3
+  altogic_dart: 0.0.4
   shared_preferences: ^2.0.15
-  url_launcher: ^6.1.5
+  url_launcher: ^6.1.6
   uni_links: ^0.5.1
   flutter:
     sdk: flutter
