@@ -1,5 +1,5 @@
 import 'package:altogic_dart/altogic_dart.dart' as alt;
-import 'package:altogic_flutter/altogic_flutter.dart';
+import '../altogic_flutter.dart';
 
 /// Creates a new client to interact with your backend application developed in
 /// Altogic. You need to specify the `envUrl` and `clientKey` to create a new

@@ -35,9 +35,7 @@ class AltogicHelper {
     return userLoggedIn;
   }
 
-  void setUser(User user){
+  void setUser(User user) {
     _user = user;
   }
-
-
 }
