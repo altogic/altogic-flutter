@@ -1,8 +1,5 @@
-import 'package:altogic_flutter/altogic_flutter.dart';
-import 'package:example/helpers/altogic_helper.dart';
 import 'package:example/pages/home_page.dart';
 import 'package:example/pages/login_page.dart';
-import 'package:example/pages/redirect_page.dart';
 import 'package:example/pages/register_page.dart';
 import 'package:example/pages/splash_screen.dart';
 import 'package:flutter/foundation.dart';
@@ -32,10 +29,7 @@ class _MyAppState extends State<MyApp> {
         return MaterialPageRoute(builder: (ctx) {
           switch (settings.name) {
             case '/redirect':
-              return RedirectResultPage(
-                userSessionFuture: AltogicHelper().init().then((value) =>
-                    AltogicHelper().auth.handleProviderRedirect(settings)),
-              );
+              throw UnimplementedError();
           }
           return MyHomePage(title: settings.name ?? "unknown");
         });
@@ -52,10 +46,7 @@ class _MyAppState extends State<MyApp> {
                   routeTo: '/register',
                 );
               case '/redirect':
-                return RedirectResultPage(
-                  userSessionFuture: AltogicHelper().init().then((value) =>
-                      AltogicHelper().auth.handleProviderRedirect(settings)),
-                );
+                throw UnimplementedError();
             }
             return const SplashScreen();
           })

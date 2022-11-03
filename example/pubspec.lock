@@ -7,14 +7,49 @@ packages:
       name: altogic_dart
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.0.4"
+    version: "0.0.9"
   altogic_flutter:
     dependency: "direct main"
     description:
       path: ".."
       relative: true
     source: path
-    version: "0.0.1"
+    version: "0.0.9"
+  app_links:
+    dependency: transitive
+    description:
+      name: app_links
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "3.3.0"
+  app_links_macos:
+    dependency: transitive
+    description:
+      name: app_links_macos
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.0.0"
+  app_links_platform_interface:
+    dependency: transitive
+    description:
+      name: app_links_platform_interface
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.0.2"
+  app_links_web:
+    dependency: transitive
+    description:
+      name: app_links_web
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.0.0"
+  app_links_windows:
+    dependency: transitive
+    description:
+      name: app_links_windows
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.0.1"
   async:
     dependency: transitive
     description:
@@ -308,27 +343,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.4.12"
-  uni_links:
-    dependency: transitive
-    description:
-      name: uni_links
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.5.1"
-  uni_links_platform_interface:
-    dependency: transitive
-    description:
-      name: uni_links_platform_interface
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "1.0.0"
-  uni_links_web:
-    dependency: transitive
-    description:
-      name: uni_links_web
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.1.0"
   url_launcher:
     dependency: transitive
     description:
