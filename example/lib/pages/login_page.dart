@@ -1,4 +1,4 @@
-import 'package:altogic_flutter/altogic_flutter.dart';
+import 'package:altogic/altogic.dart';
 import 'package:example/helpers/altogic_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';

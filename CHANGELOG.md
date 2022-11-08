@@ -1,3 +1,10 @@
+## 0.0.9+1
+
+- Package name changed to "altogic"
+- Some public classes turned to private
+- Some public methods turned to private
+
+
 ## 0.0.9
 
 - Preparing to release

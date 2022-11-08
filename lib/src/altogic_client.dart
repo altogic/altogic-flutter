@@ -1,5 +1,5 @@
 import 'package:altogic_dart/altogic_dart.dart' as alt;
-import '../altogic_flutter.dart';
+import '../altogic.dart';
 
 /// Creates a new client to interact with your backend application developed in
 /// Altogic. You need to specify the `envUrl` and `clientKey` to create a new
@@ -52,6 +52,7 @@ AltogicClient createClient(String envUrl, String clientKey,
 /// to other environments, you need to create additional AltogicClient
 /// objects using the target environment's `envUrl`.
 class AltogicClient extends alt.AltogicClient {
+  /// Create a new client for altogic applications.
   AltogicClient(String envUrl, String clientKey, [alt.ClientOptions? options])
       : super(
             envUrl,
