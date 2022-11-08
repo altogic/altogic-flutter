@@ -1,4 +1,4 @@
-name: altogic_flutter
+name: altogic
 description: Dart client for Altogic. Altogic is a backend application development and execution platform, enabling people and businesses to design, deploy and manage scalable applications.
 homepage: https://github.com/altogic/altogic-flutter
 repository: https://github.com/altogic/altogic-flutter
