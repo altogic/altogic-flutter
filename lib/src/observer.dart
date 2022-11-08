@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 
-
 /// Altogic navigator observer to track route changes and get the current
 /// route's context.
 ///
@@ -16,6 +15,7 @@ class AltogicNavigatorObserver extends NavigatorObserver {
 
   factory AltogicNavigatorObserver() => _instance;
 
+  /// Current route's context
   BuildContext? context;
 
   @override
