@@ -3,6 +3,7 @@
 - Package name changed to "altogic"
 - Some public classes turned to private
 - Some public methods turned to private
+- altogic_dart package upgraded to 0.0.9+2
 
 
 ## 0.0.9
