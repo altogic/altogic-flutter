@@ -86,7 +86,7 @@ class AltogicClient extends dart.AltogicClient {
 
     if (redirect is RedirectWithToken && redirect.error == null) {
       var res = await auth.getAuthGrant(redirect.token);
-      if (res.errors != null) {
+      if (res.errors == null) {
         _webLinkRedirect = redirect;
       }
     }

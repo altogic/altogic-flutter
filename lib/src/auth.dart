@@ -125,31 +125,36 @@ abstract class AltogicState<T extends StatefulWidget> extends State<T> {
         onPasswordResetLink: onPasswordResetLink,
         onOauthProviderLink: onOauthProviderLink,
         onChangeEmailLink: onEmailChangeLink));
-    if (kIsWeb && _webLinkRedirect != null) {
-      // Copy
-      var redirect = Redirect._fromRoute(_webLinkRedirect!.url);
-      _webLinkRedirect = null;
-      if (redirect != null) {
-        switch (redirect.action) {
-          case RedirectAction.magicLink:
-            onMagicLink(context, redirect as MagicLinkRedirect);
-            break;
-          case RedirectAction.emailConfirm:
-            onEmailVerificationLink(
-                context, redirect as EmailVerificationRedirect);
-            break;
-          case RedirectAction.passwordReset:
-            onPasswordResetLink(context, redirect as PasswordResetRedirect);
-            break;
-          case RedirectAction.provider:
-            onOauthProviderLink(context, redirect as OauthRedirect);
-            break;
-          case RedirectAction.changeEmail:
-            onEmailChangeLink(context, redirect as ChangeEmailRedirect);
-            break;
+
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      if (kIsWeb && _webLinkRedirect != null) {
+        // Copy
+        var redirect = Redirect._fromRoute(_webLinkRedirect!.url);
+        _webLinkRedirect = null;
+        if (redirect != null) {
+          var ctx = AltogicNavigatorObserver().context;
+          switch (redirect.action) {
+            case RedirectAction.magicLink:
+              onMagicLink(ctx, redirect as MagicLinkRedirect);
+              break;
+            case RedirectAction.emailConfirm:
+              onEmailVerificationLink(
+                  ctx, redirect as EmailVerificationRedirect);
+              break;
+            case RedirectAction.passwordReset:
+              onPasswordResetLink(ctx, redirect as PasswordResetRedirect);
+              break;
+            case RedirectAction.provider:
+              onOauthProviderLink(ctx, redirect as OauthRedirect);
+              break;
+            case RedirectAction.changeEmail:
+              onEmailChangeLink(ctx, redirect as ChangeEmailRedirect);
+              break;
+          }
         }
       }
-    }
+    });
+
     super.initState();
   }
 

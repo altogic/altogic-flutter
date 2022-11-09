@@ -1,4 +1,4 @@
-## 0.0.9+4
+## 0.0.9+5
 
 - ``AltogicClient.restoreLocalAuthSession`` now handle deep links when application is not running and opened with the link.
 - `AltogicClient.auth` now returns ``FlutterAuthManager`` that implements `AuthManager`.
@@ -8,6 +8,7 @@
 - Many documentation improvements.
 - ``altogic_dart`` package upgraded to ``0.0.9+3``. see [changelog](https://pub.dev/packages/altogic_dart/changelog).
 - ``README.md`` updated.
+- Web redirect bug fixed.
 
 ## 0.0.9+1
 
