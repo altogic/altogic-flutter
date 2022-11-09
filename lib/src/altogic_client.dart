@@ -93,6 +93,19 @@ class AltogicClient extends dart.AltogicClient {
 
     await super.restoreAuthSession();
   }
+
+  /// When application is not running and opened with a deep link,
+  /// [restoreAuthSession] will automatically sign in the user.
+  ///
+  /// So if you have a splash screen, in the screen
+  /// [AltogicClient.auth.currentState] will be logged in and may be you want to
+  /// route to the user in splash screen. However, you may want to same in the
+  /// [AltogicState].onX methods. This will cause conflicts.
+  ///
+  /// To avoid this, you can use this method to check link handled by onX
+  /// methods.
+  bool get linkHandled => _linkHandled;
 }
 
+bool _linkHandled = false;
 Redirect? _webLinkRedirect;

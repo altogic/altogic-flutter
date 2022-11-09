@@ -48,23 +48,12 @@ In mobile or desktop applications, you can use deep linking to open the applicat
 
 ##### [Deep Linking Configuration](https://www.google.com)
 
-### When Application Not Running
-If your application is not running and opened with a deep link, `AltogicClient.restoreAuthSession` method handle
-the deep link automatically.
-
-#### Restore Auth Session
-
-`AltogicClient` can restore session from a deep link or local storage. To restore session from a deep link, have to use
-`AltogicClient.restoreAuthSession` method.
-
-```dart
-await altogic.restoreAuthSession();
-```
 
 
 ### When Application Running in Background
 
 If your application is running in background and opened with a deep link, `AltogicState` handle the deep link.
+
 
 ### AltogicState
 
@@ -131,4 +120,26 @@ class _AltogicAuthExampleAppState extends AltogicState<AltogicAuthExampleApp> {
 }
 
 `````
+
+
+### When Application Not Running
+If your application is not running and opened with a deep link, `AltogicClient.restoreAuthSession` method handle
+the deep link automatically.
+
+#### Restore Auth Session
+
+`AltogicClient` can restore session from a deep link or local storage. To restore session from a deep link, have to use
+`AltogicClient.restoreAuthSession` method.
+
+```dart
+await altogic.restoreAuthSession();
+```
+
+> Note: When application is not running and opened with a deep link, 
+> [restoreAuthSession] will automatically sign in the user. 
+>
+> So if you have a splash screen, in the screen [AltogicClient.auth.currentState] will
+> be logged in and may be you want to route to the user in splash screen. However, 
+> you may want to same in the [AltogicState].onX methods. This will cause conflicts.
+> To avoid this, you can use [AltogicClient.linkHandled] to check link handled by onX methods.
 

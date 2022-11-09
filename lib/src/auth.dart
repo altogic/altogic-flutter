@@ -109,9 +109,11 @@ abstract class AltogicState<T extends StatefulWidget> extends State<T> {
   void _listenInitialLinks(_LinkConfiguration configuration) async {
     var initialLink = await AppLinks().getInitialAppLink();
     if (initialLink != null) {
+      _linkHandled = false;
       _handleLink(initialLink, configuration);
     }
     AppLinks().uriLinkStream.listen((e) {
+      _linkHandled = false;
       _handleLink(e, configuration);
     });
   }
@@ -166,12 +168,14 @@ abstract class AltogicState<T extends StatefulWidget> extends State<T> {
   Redirect? getWebRedirect(String? route) => Redirect._fromRoute(route);
 }
 
-void _handleLink(Uri uri, _LinkConfiguration configuration) {
+void _handleLink(Uri uri, _LinkConfiguration configuration) async {
   if (kIsWeb) {
     return;
   }
+  if (uri.queryParameters['action'] == null) return;
   var context = AltogicNavigatorObserver().context;
   var e = Redirect._factory(uri);
+  _linkHandled = true;
   switch (e.action) {
     case RedirectAction.emailConfirm:
       configuration.onEmailVerificationLink
