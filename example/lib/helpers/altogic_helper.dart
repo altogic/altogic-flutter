@@ -20,7 +20,7 @@ class AltogicHelper {
     client = createClient(
         'https://c1-na.altogic.com/e:62863f06bb75ed002ed0f207',
         '5ad8526dbd014613a8dbeff60daa7c26');
-    await client.restoreLocalAuthSession();
+    await client.restoreAuthSession();
     _initialized = true;
     await checkUserLoggedIn();
   }

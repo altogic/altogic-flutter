@@ -1,3 +1,14 @@
+## 0.0.9+4
+
+- ``AltogicClient.restoreLocalAuthSession`` now handle deep links when application is not running and opened with the link.
+- `AltogicClient.auth` now returns ``FlutterAuthManager`` that implements `AuthManager`.
+- ``AuthManager.signInWithProvider`` now opens the provider's sign in page automatically.
+- ``ClientOptions`` implementation is added.
+- ``ClientOptions.signInRedirect`` now is called with a nullable `BuildContext` parameter.
+- Many documentation improvements.
+- ``altogic_dart`` package upgraded to ``0.0.9+3``. see [changelog](https://pub.dev/packages/altogic_dart/changelog).
+- ``README.md`` updated.
+
 ## 0.0.9+1
 
 - Package name changed to "altogic"

@@ -1,8 +1,4 @@
-import 'package:app_links/app_links.dart';
-import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
-
-import '../altogic.dart';
+part of altogic;
 
 /// AltogicState is a [State] class that listens initial links and
 /// provides redirect actions via overridable methods:
@@ -129,6 +125,31 @@ abstract class AltogicState<T extends StatefulWidget> extends State<T> {
         onPasswordResetLink: onPasswordResetLink,
         onOauthProviderLink: onOauthProviderLink,
         onChangeEmailLink: onEmailChangeLink));
+    if (kIsWeb && _webLinkRedirect != null) {
+      // Copy
+      var redirect = Redirect._fromRoute(_webLinkRedirect!.url);
+      _webLinkRedirect = null;
+      if (redirect != null) {
+        switch (redirect.action) {
+          case RedirectAction.magicLink:
+            onMagicLink(context, redirect as MagicLinkRedirect);
+            break;
+          case RedirectAction.emailConfirm:
+            onEmailVerificationLink(
+                context, redirect as EmailVerificationRedirect);
+            break;
+          case RedirectAction.passwordReset:
+            onPasswordResetLink(context, redirect as PasswordResetRedirect);
+            break;
+          case RedirectAction.provider:
+            onOauthProviderLink(context, redirect as OauthRedirect);
+            break;
+          case RedirectAction.changeEmail:
+            onEmailChangeLink(context, redirect as ChangeEmailRedirect);
+            break;
+        }
+      }
+    }
     super.initState();
   }
 

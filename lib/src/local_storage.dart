@@ -1,5 +1,4 @@
-import 'package:altogic_dart/altogic_dart.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+part of altogic;
 
 /// ClientStorage implementation for Flutter.
 ///
@@ -9,7 +8,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 ///
 /// [SharedPreferencesStorage] is the default storage for [AltogicClient] in
 /// Flutter.
-class SharedPreferencesStorage extends ClientStorage {
+class SharedPreferencesStorage extends dart.ClientStorage {
   /// Shared preferences instance
   late SharedPreferences preferences;
   Future<SharedPreferences>? _prefGetter;

@@ -1,4 +1,4 @@
-## Altogic Dart
+# Altogic Dart
 
 Altogic Dart is a Dart client for the Altogic Client Library. It provides access to all the functionality of the Altogic
 Client Library.
@@ -6,9 +6,9 @@ Client Library.
 This package includes some Flutter dependencies in addition to the [altogic_dart](https://pub.dev/packages/altogic_dart)
 package.
 
-## Additional Functionalities
+# Additional Functionalities
 
-### Default Local Storage
+## Default Local Storage
 
 `AltogicClient` needs a local storage implementation to hold session and user information. This package provides a
 default
@@ -25,24 +25,52 @@ final altogic = createClient(
 );
 ```
 
-### Auto Open Sign In With Provider URLs
+## Auto Open Sign In With Provider URLs
 
 AltogicClient can open sign in with provider URLs automatically. To open sign in with provider URLs automatically, have
 to
-use ``AuthManager.signInWithProviderFlutter`` method.
+use ``AuthManager.signInWithProvider`` method.
 
 ```dart
-altogic.auth.signInWithProviderFlutter('google');
+altogic.auth.signInWithProvider('google');
 ```
 
-``signInWithProviderFlutter`` returns a ``Future`` that resolves to ``true`` if the sign in with provider URL is opened.
+## Handle Redirect URLs
 
-### Handle Sign In With Provider Callbacks
+In many authentication flows/operations Altogic redirects your user to a specific URL.
 
-#### AltogicState
+For example oAuth2 flow after user signed in with the provider sign in page, Altogic redirects the user to the
+redirect URL you specified in the Altogic Designer.
 
-If you use the ``AltogicState`` in root of the application, the state will be mounted if the application lifecyle is
+On websites, you can handle redirect urls by getting which path the site was opened with.
+
+In mobile or desktop applications, you can use deep linking to open the application from a redirect url.
+
+##### [Deep Linking Configuration](https://www.google.com)
+
+### When Application Not Running
+If your application is not running and opened with a deep link, `AltogicClient.restoreAuthSession` method handle
+the deep link automatically.
+
+#### Restore Auth Session
+
+`AltogicClient` can restore session from a deep link or local storage. To restore session from a deep link, have to use
+`AltogicClient.restoreAuthSession` method.
+
+```dart
+await altogic.restoreAuthSession();
+```
+
+
+### When Application Running in Background
+
+If your application is running in background and opened with a deep link, `AltogicState` handle the deep link.
+
+### AltogicState
+
+If you use the ``AltogicState`` in root of the application, the state will be mounted if the application lifecycle is
 resumed. So when application resumed or opened with deep link, we can handle the link.
+
 
 When the application is opened with a deeplink, ``AltogicState`` cannot synchronously inform you with which link the
 application was opened. Instead, you can override methods to be called when the application is opened with a deep link.
@@ -53,6 +81,10 @@ Available methods to override: `onEmailVerificationLink`, `onMagicLink`, `onOaut
 AltogicState provides a getter named ``navigatorObserver`` that can be used to observe navigation events. You can use
 this to deep linking methods BuildContext parameter.If you use navigatorObserver e.g. ``onMagicLink`` called with
 context, otherwise BuildContext will be null on the method.
+
+> If application is not running and opened with a deep link, ``restoreAuthSession`` method handle the deep link and get 
+> auth grant. Even if auth grant was gotten, the methods below will be called again. Getting auth grant again is returns
+> same result.
 
 `````dart
 
@@ -76,20 +108,17 @@ class _AltogicAuthExampleAppState extends AltogicState<AltogicAuthExampleApp> {
 
   @override
   void onPasswordResetLink(BuildContext? context, PasswordResetRedirect redirect) {
-    // TODO: implement onPasswordResetLink
-    super.onPasswordResetLink(context, redirect);
+    // Handle password reset link
   }
 
   @override
   void onEmailChangeLink(BuildContext? context, ChangeEmailRedirect redirect) {
-    // TODO: implement onEmailChangeLink
-    super.onEmailChangeLink(context, redirect);
+    // Handle email change link
   }
 
   @override
   void onOauthProviderLink(BuildContext? context, OauthRedirect redirect) {
-    // TODO: implement onOauthProviderLink
-    super.onOauthProviderLink(context, redirect);
+    // Handle oauth provider link
   }
 
   @override
@@ -102,3 +131,4 @@ class _AltogicAuthExampleAppState extends AltogicState<AltogicAuthExampleApp> {
 }
 
 `````
+

@@ -7,14 +7,14 @@ packages:
       path: ".."
       relative: true
     source: path
-    version: "0.0.9+1"
+    version: "0.0.9+4"
   altogic_dart:
     dependency: transitive
     description:
       name: altogic_dart
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.0.9+2"
+    version: "0.0.9+3"
   app_links:
     dependency: transitive
     description:
