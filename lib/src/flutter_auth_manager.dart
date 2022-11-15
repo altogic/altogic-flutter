@@ -40,20 +40,15 @@ class FlutterAuthManager extends AuthManager {
   /// Also checks auth grant was already gotten with the same accessToken. So,
   /// if you call this method twice with the same accessToken, it will return
   /// the same result.
-  ///
-  /// Even if [AltogicClient.restoreAuthSession] was gotten auth grant,
-  /// "AuthState.onX" will still be executed. In this case, re-granting auth
-  /// may cause this secondary call. In both these cases this method will return
-  /// the same result if the same access_token is used.
   @override
   Future<UserSessionResult> getAuthGrant([String? accessToken]) async {
-    if (_authGrantUsed == accessToken && currentState.isLoggedIn) {
+    if (_usedAuthToken == accessToken && currentState.isLoggedIn) {
       return UserSessionResult(
           user: currentState.user, session: currentState.session);
     }
 
     if (accessToken != null) {
-      _authGrantUsed = accessToken;
+      _usedAuthToken = accessToken;
       return super.getAuthGrant(accessToken);
     }
 
@@ -61,16 +56,16 @@ class FlutterAuthManager extends AuthManager {
         Redirect._fromRoute(await AppLinks().getInitialAppLinkString());
 
     if (redirect is RedirectWithToken && redirect.error == null) {
-      if (_authGrantUsed == redirect.token && currentState.isLoggedIn) {
+      if (_usedAuthToken == redirect.token && currentState.isLoggedIn) {
         return UserSessionResult(
             user: currentState.user, session: currentState.session);
       }
-      _authGrantUsed = redirect.token;
+      _usedAuthToken = redirect.token;
       return super.getAuthGrant(redirect.token);
     }
 
     return super.getAuthGrant();
   }
 
-  String? _authGrantUsed;
+  String? _usedAuthToken;
 }
