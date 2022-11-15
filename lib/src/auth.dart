@@ -1,8 +1,4 @@
-import 'package:app_links/app_links.dart';
-import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
-
-import '../altogic.dart';
+part of altogic;
 
 /// AltogicState is a [State] class that listens initial links and
 /// provides redirect actions via overridable methods:
@@ -113,9 +109,11 @@ abstract class AltogicState<T extends StatefulWidget> extends State<T> {
   void _listenInitialLinks(_LinkConfiguration configuration) async {
     var initialLink = await AppLinks().getInitialAppLink();
     if (initialLink != null) {
+      //_linkHandled = false;
       _handleLink(initialLink, configuration);
     }
     AppLinks().uriLinkStream.listen((e) {
+      //_linkHandled = false;
       _handleLink(e, configuration);
     });
   }
@@ -138,12 +136,18 @@ abstract class AltogicState<T extends StatefulWidget> extends State<T> {
   /// and [AltogicState] checks the link has a "status" parameter or not for
   /// get the link is Altogic redirect link or not.
   Redirect? getWebRedirect(String? route) => Redirect._fromRoute(route);
+
+  /// Get application initial link redirect. This method returns [Redirect]
+  /// instance if the deep link (on initial link in web) is Altogic redirect
+  /// link. Otherwise returns null.
+  ///
+  /// Also returns null if application is not opened by deep link.
+  static Future<Redirect?> get applicationInitialRedirect async =>
+      Redirect._fromRoute((await AppLinks().getInitialAppLink()).toString());
 }
 
-void _handleLink(Uri uri, _LinkConfiguration configuration) {
-  if (kIsWeb) {
-    return;
-  }
+void _handleLink(Uri uri, _LinkConfiguration configuration) async {
+  if (uri.queryParameters['action'] == null) return;
   var context = AltogicNavigatorObserver().context;
   var e = Redirect._factory(uri);
   switch (e.action) {
@@ -268,22 +272,26 @@ class RedirectWithToken extends Redirect {
   String get token => _queryParameters['access_token'] as String;
 }
 
+abstract class RedirectToGetAuth extends RedirectWithToken {
+  RedirectToGetAuth._(Uri url) : super._(url);
+}
+
 /// Oauth redirect is used to hold information about the link that
 /// opened the application. Oauth redirect is created from the link.
-class OauthRedirect extends RedirectWithToken {
+class OauthRedirect extends RedirectToGetAuth {
   OauthRedirect._(Uri url) : super._(url);
 }
 
 /// Magic link redirect is used to hold information about the link that
 /// opened the application. Magic link redirect is created from the link.
-class MagicLinkRedirect extends RedirectWithToken {
+class MagicLinkRedirect extends RedirectToGetAuth {
   MagicLinkRedirect._(Uri url) : super._(url);
 }
 
 /// Email verification redirect is used to hold information about the link that
 /// opened the application. Email verification redirect is created from the
 /// link.
-class EmailVerificationRedirect extends RedirectWithToken {
+class EmailVerificationRedirect extends RedirectToGetAuth {
   EmailVerificationRedirect._(Uri url) : super._(url);
 }
 

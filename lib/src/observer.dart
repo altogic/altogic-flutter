@@ -1,4 +1,4 @@
-import 'package:flutter/cupertino.dart';
+part of altogic;
 
 /// Altogic navigator observer to track route changes and get the current
 /// route's context.

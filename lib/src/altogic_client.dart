@@ -1,5 +1,4 @@
-import 'package:altogic_dart/altogic_dart.dart' as alt;
-import '../altogic.dart';
+part of altogic;
 
 /// Creates a new client to interact with your backend application developed in
 /// Altogic. You need to specify the `envUrl` and `clientKey` to create a new
@@ -14,13 +13,13 @@ import '../altogic.dart';
 ///
 /// [options] Additional configuration parameters.
 ///
-/// [ClientOptions.apiKey] A valid API key of the environment.
+/// [dart.ClientOptions.apiKey] A valid API key of the environment.
 ///
-/// [ClientOptions.localStorage] Client storage handler to store user and
+/// [dart.ClientOptions.localStorage] Client storage handler to store user and
 /// session data.
 ///
-/// [ClientOptions.signInRedirect] The sign in page URL to redirect the user
-/// when user's session becomes invalid.
+/// [dart.ClientOptions.signInRedirect] The sign in page URL to redirect the
+/// user when user's session becomes invalid.
 ///
 /// Returns the newly created client instance.
 AltogicClient createClient(String envUrl, String clientKey,
@@ -51,15 +50,44 @@ AltogicClient createClient(String envUrl, String clientKey,
 /// environments at the same time. If you would like to issue commands
 /// to other environments, you need to create additional AltogicClient
 /// objects using the target environment's `envUrl`.
-class AltogicClient extends alt.AltogicClient {
+class AltogicClient extends dart.AltogicClient {
   /// Create a new client for altogic applications.
-  AltogicClient(String envUrl, String clientKey, [alt.ClientOptions? options])
+  ///
+  /// This AltogicClient constructor is used to create a new client for
+  /// Flutter. It is not recommended to use this constructor directly. Instead,
+  /// use the [createClient] function to create a new client.
+  AltogicClient(String envUrl, String clientKey, [dart.ClientOptions? options])
       : super(
             envUrl,
             clientKey,
-            alt.ClientOptions(
+            dart.ClientOptions(
                 localStorage:
                     options?.localStorage ?? SharedPreferencesStorage(),
                 apiKey: options?.apiKey,
                 signInRedirect: options?.signInRedirect));
+
+  @override
+  FlutterAuthManager get auth => _flutterAuth ??= FlutterAuthManager(this);
+
+  FlutterAuthManager? _flutterAuth;
+
+  /// In Flutter apps, restoreLocalAuthSession restores the user session from
+  /// local storage and if application opened with a deep link, it will
+  /// automatically sign in the user.
+  ///
+  /// If the application was opened with a deep link and the authorization
+  /// grant was obtained by this method, next calls of
+  /// [AuthManager.getAuthGrant] with the same token, will return the same
+  /// result.
+  @override
+  Future<void> restoreAuthSession() async {
+    var redirect =
+        Redirect._fromRoute(await AppLinks().getInitialAppLinkString());
+
+    if (redirect is RedirectToGetAuth && redirect.error == null) {
+      return;
+    }
+
+    await super.restoreAuthSession();
+  }
 }
