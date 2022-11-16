@@ -1,7 +1,7 @@
 part of altogic;
 
-/// AltogicState is a [State] class that listens initial links and
-/// provides redirect actions via overridable methods:
+/// AltogicState is a [State] class that listens to initial links and provides
+/// redirect actions via overridable methods:
 ///
 /// - [onMagicLink]
 /// - [onEmailVerificationLink]
@@ -9,101 +9,106 @@ part of altogic;
 /// - [onEmailChangeLink]
 /// - [onOauthProviderLink]
 ///
-/// Each methods called with redirect action parameters and the current
-/// [BuildContext].
 ///
-/// The methods are called only once, when the initial link is received. Each of
-/// the methods called with [Redirect] instance. The [Redirect] instance
-/// contains the link parameters: [Redirect.action], [Redirect.error],
-/// [Redirect.status] and raw url that [Redirect] created from [Redirect.url].
+/// The methods are called only once when the initial link is received. Each
+/// method is triggered with the [Redirect] instance and the current
+/// [BuildContext]. The [Redirect] instance contains the link parameters:
+/// [Redirect.action], [Redirect.error], [Redirect.status], and raw URL that
+/// [Redirect] created from [Redirect.url].
 ///
-/// If [Redirect.error] is not null, the process is invalid and the [Redirect]
-/// instance contains the error message. E.g. on oAuth provider link, if the
-/// user already exists with the same e-mail, the [Redirect.error] will contain
-/// the error message and status will be between 400 and 599.
+/// If [Redirect.error] is not null, the process is invalid, and the [Redirect]
+/// instance contains the error message. E.g., on the oAuth provider link, if
+/// the user already exists with the same e-mail, the [Redirect.error] will
+/// contain the error message, and the status will be between 400 and 599.
 ///
-/// If [Redirect.status] is between 200-299 the process is valid and the action
-/// can be completed. [ChangeEmailRedirect] not contains additional property.
-/// So If the [Redirect.status] is 200, mail changed successfully.
+/// If [Redirect.status] is between 200-299, the process is valid, and the
+/// action can be completed. [ChangeEmailRedirect] does not contain additional
+/// property. So If the [Redirect.status] is 200, this means that the e-mail is
+/// changed successfully.
 ///
-/// Rest of the actions contains additional property [RedirectWithToken.token]
-/// that can be use to complete the process. For know how to complete process
-/// see [AltogicState.onMagicLink], [AltogicState.onEmailVerificationLink],
-/// [AltogicState.onPasswordResetLink] and [AltogicState.onOauthProviderLink].
+/// The rest of the actions contains additional property
+/// [RedirectWithToken.token] that can be used to complete the process. For more
+/// information on how to complete the process, please see
+/// [AltogicState.onMagicLink], [AltogicState.onEmailVerificationLink],
+/// [AltogicState.onPasswordResetLink], and [AltogicState.onOauthProviderLink].
 abstract class AltogicState<T extends StatefulWidget> extends State<T> {
-  /// AltogicNavigatorObserver instance to track route changes and get the
+  /// [AltogicNavigatorObserver] instance to track route changes and get the
   /// current route's context.
   NavigatorObserver get navigatorObserver => AltogicNavigatorObserver();
 
-  /// Called when a magic link is opened.
+  /// This method is called when a magic link is opened.
   ///
-  /// The [MagicLinkRedirect] is a [RedirectWithToken] and
+  /// The [MagicLinkRedirect] is a [RedirectWithToken], and
   /// [RedirectWithToken.token] can be used to complete the process.
   ///
-  /// To complete process and login the user, use [AuthManager.getAuthGrant].
+  /// To complete the process and log in to the user, use
+  /// [AuthManager.getAuthGrant].
   ///
-  /// If token is valid, the user will be logged in and
+  /// If the token is valid, the user will be logged in, and
   /// [AuthManager.getAuthGrant] returns [UserSessionResult] that have
   /// properties [User] and [Session].
   ///
-  /// You can get auth grant in this method or you can route to a new page
-  /// and get auth grant in that page.
+  /// You can get auth grant in this method, or you can route to a new page and
+  /// get auth grant on that page.
   void onMagicLink(BuildContext? context, MagicLinkRedirect redirect) {}
 
-  /// Called when a email verification link is opened.
+  /// This method is called when an email verification link is opened.
   ///
-  /// The [EmailVerificationRedirect] is a [RedirectWithToken] and
+  /// The [EmailVerificationRedirect] is a [RedirectWithToken], and
   /// [RedirectWithToken.token] can be used to complete the process.
   ///
-  /// To complete process and login the user, use [AuthManager.getAuthGrant].
+  /// To complete the process and log in to the user, use
+  /// [AuthManager.getAuthGrant].
   ///
-  /// If token is valid, the user will be logged in and
+  /// If the token is valid, the user will be logged in, and
   /// [AuthManager.getAuthGrant] returns [UserSessionResult] that have
   /// properties [User] and [Session].
   ///
-  /// You can get auth grant in this method or you can route to a new page
-  /// and get auth grant in that page.
+  /// You can get auth grant in this method, or you can route to a new page and
+  /// get auth grant on that page.
   void onEmailVerificationLink(
       BuildContext? context, EmailVerificationRedirect redirect) {}
 
-  /// Called when a password reset link is opened.
+  /// This method is called when a password reset link is opened.
   ///
-  /// The [PasswordResetRedirect] is a [RedirectWithToken] and
+  /// The [PasswordResetRedirect] is a [RedirectWithToken], and
   /// [RedirectWithToken.token] can be used to complete the process.
   ///
-  /// To complete process use [AuthManager.resetPwdWithToken].
+  /// To complete the process, use [AuthManager.resetPwdWithToken].
   ///
-  /// If token is valid, the user will be logged in and
+  /// If the token is valid, the user will be logged in and
   /// [AuthManager.resetPwdWithToken] returns null, otherwise returns
   /// [APIError].
   ///
-  /// After changing password user *NOT logged in*.
+  /// After changing the password user *NOT logged in*.
   ///
-  /// You can show change password dialog in this method or you can route to a
-  /// new page and change password in the page.
+  /// You can show the change password dialog in this method or route to a new
+  /// page and change the password on the page.
   void onPasswordResetLink(
       BuildContext? context, PasswordResetRedirect redirect) {}
 
-  /// Called when an oauth provider link is opened.
+  /// This method is called when an OAuth provider link is opened.
   ///
-  /// The [OauthRedirect] is a [RedirectWithToken] and
+  /// The [OauthRedirect] is a [RedirectWithToken], and
   /// [RedirectWithToken.token] can be used to complete the process.
   ///
-  /// To complete process and login the user, use [AuthManager.getAuthGrant].
+  /// To complete the process and log in to the user, use
+  /// [AuthManager.getAuthGrant].
   ///
-  /// If token is valid, the user will be logged in and
+  /// If the token is valid, the user will be logged in, and
   /// [AuthManager.getAuthGrant] returns [UserSessionResult] that have
   /// properties [User] and [Session].
   ///
-  /// You can get auth grant in this method or you can route to a new page
-  /// and get auth grant in that page.
+  /// You can get auth grant in this method, or you can route to a new page and
+  /// get auth grant on that page.
   void onOauthProviderLink(BuildContext? context, OauthRedirect redirect) {}
 
-  /// Called when an email change link is opened.
-  ///
-  /// If the [Redirect.status] is 200, mail changed successfully.
-  ///
-  /// You can show dialog or route to a new page to inform user. Or nothing.
+  /// This method is called when an email change link is opened.
+
+  /// If the [Redirect.status] is 200, the email has been successfully changed.
+
+  /// You can show a dialog or route to a new page to inform the user. Or
+  /// nothing.
   void onEmailChangeLink(BuildContext? context, ChangeEmailRedirect redirect) {}
 
   void _listenInitialLinks(_LinkConfiguration configuration) async {
@@ -130,18 +135,18 @@ abstract class AltogicState<T extends StatefulWidget> extends State<T> {
     super.initState();
   }
 
-  /// Creates [Redirect] from route in [WidgetsApp.onGenerateInitialRoutes].
+  /// Creates [Redirect] from the route in [WidgetsApp.onGenerateInitialRoutes].
   ///
-  /// All links that open application are handled by [AltogicState]
-  /// and [AltogicState] checks the link has a "status" parameter or not for
+  /// All links that open the application are handled by [AltogicState], and
+  /// [AltogicState] checks whether the link has a "status" parameter or not to
   /// get the link is Altogic redirect link or not.
   Redirect? getWebRedirect(String? route) => Redirect._fromRoute(route);
 
-  /// Get application initial link redirect. This method returns [Redirect]
-  /// instance if the deep link (on initial link in web) is Altogic redirect
-  /// link. Otherwise returns null.
+  /// Get the application's initial link redirect. This method returns
+  /// [Redirect] instance if the deep link (on the initial link in the web)
+  /// is Altogic redirect link.
   ///
-  /// Also returns null if application is not opened by deep link.
+  /// It also returns null if the application is not opened by the deep link.
   static Future<Redirect?> get applicationInitialRedirect async =>
       Redirect._fromRoute((await AppLinks().getInitialAppLink()).toString());
 }
@@ -215,8 +220,9 @@ enum RedirectAction {
   final String actionName;
 }
 
-/// Redirect action. Redirect is used to hold information about the link that
-/// opened the application. Redirect is created from the link.
+/// Redirect action.
+///
+/// Redirect is used to hold information about the link that opened the application. Redirect is created from the link.
 abstract class Redirect {
   Redirect._fromUri(Uri uri)
       : url = uri.toString(),

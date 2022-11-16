@@ -10,12 +10,12 @@ class FlutterAuthManager extends AuthManager {
   ///
   /// This method will open a browser window to sign in with the provider.
   ///
-  /// [provider] is the provider to sign in with.
+  /// [provider] is the OAuth2 provider to sign in.
   ///
-  /// If you want to open it manually, you can get the link by using
+  /// If you want to open it manually, you can get the link using
   /// [signInWithProvider].
   ///
-  /// [completer] is the completer to complete when the url launching is done.
+  /// [completer] is the completer to complete when the URL launching is done.
   @override
   String signInWithProvider(String provider, [Completer<bool>? completer]) {
     var link = signInWithProvider(provider);
@@ -29,6 +29,7 @@ class FlutterAuthManager extends AuthManager {
     }).onError((error, stackTrace) {
       completer?.completeError(error ?? Exception(), stackTrace);
     });
+
     return link;
   }
 
@@ -37,9 +38,7 @@ class FlutterAuthManager extends AuthManager {
   /// This methods checks if application is opened with a link. If it is, it
   /// will get the auth grant and return it.
   ///
-  /// Also checks auth grant was already gotten with the same accessToken. So,
-  /// if you call this method twice with the same accessToken, it will return
-  /// the same result.
+  /// If [accessToken] is defined this method not check the deep link.
   @override
   Future<UserSessionResult> getAuthGrant([String? accessToken]) async {
     if (_usedAuthToken == accessToken && currentState.isLoggedIn) {
