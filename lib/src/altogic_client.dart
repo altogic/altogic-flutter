@@ -53,7 +53,7 @@ AltogicClient createClient(String envUrl, String clientKey,
 class AltogicClient extends dart.AltogicClient {
   /// Create a new client for altogic applications.
   ///
-  /// This AltogicClient constructor is used to create a new client for
+  /// This AltogicClient constructor is used to create a new [AltogicClient] for
   /// Flutter. It is not recommended to use this constructor directly. Instead,
   /// use the [createClient] function to create a new client.
   AltogicClient(String envUrl, String clientKey, [dart.ClientOptions? options])
@@ -72,13 +72,10 @@ class AltogicClient extends dart.AltogicClient {
   FlutterAuthManager? _flutterAuth;
 
   /// In Flutter apps, restoreLocalAuthSession restores the user session from
-  /// local storage and if application opened with a deep link, it will
-  /// automatically sign in the user.
+  /// local storage.
   ///
-  /// If the application was opened with a deep link and the authorization
-  /// grant was obtained by this method, next calls of
-  /// [AuthManager.getAuthGrant] with the same token, will return the same
-  /// result.
+  /// If a deep link opened the application and there is an access grant, this
+  /// method ignores the local session.
   @override
   Future<void> restoreAuthSession() async {
     var redirect =

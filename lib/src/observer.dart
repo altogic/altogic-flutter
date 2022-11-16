@@ -3,8 +3,8 @@ part of altogic;
 /// Altogic navigator observer to track route changes and get the current
 /// route's context.
 ///
-/// When AltogicState is defined above Application(MaterialApp,CupertinoApp
-/// etc.), AltogicState's context does not contain a Router. Therefore, the
+/// When [AltogicState] wraps the Application (MaterialApp, CupertinoApp,
+/// etc.), [AltogicState]'s context does not contain a Router. Therefore, the
 /// static Navigator.of method will not find a Navigator and will throw an
 /// error.
 class AltogicNavigatorObserver extends NavigatorObserver {
