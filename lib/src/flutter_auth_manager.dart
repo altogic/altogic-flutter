@@ -35,7 +35,7 @@ class FlutterAuthManager extends AuthManager {
 
   /// [getAuthGrant] using Flutter
   ///
-  /// This methods checks if application is opened with a link. If it is, it
+  /// This methods checks if application is launched with a link. If it is, it
   /// will get the auth grant and return it.
   ///
   /// If [accessToken] is defined this method not check the deep link.

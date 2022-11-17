@@ -36,7 +36,7 @@ abstract class AltogicState<T extends StatefulWidget> extends State<T> {
   /// current route's context.
   NavigatorObserver get navigatorObserver => AltogicNavigatorObserver();
 
-  /// This method is called when a magic link is opened.
+  /// This method is called when a magic link is launched.
   ///
   /// The [MagicLinkRedirect] is a [RedirectWithToken], and
   /// [RedirectWithToken.token] can be used to complete the process.
@@ -52,7 +52,7 @@ abstract class AltogicState<T extends StatefulWidget> extends State<T> {
   /// get auth grant on that page.
   void onMagicLink(BuildContext? context, MagicLinkRedirect redirect) {}
 
-  /// This method is called when an email verification link is opened.
+  /// This method is called when an email verification link is launched.
   ///
   /// The [EmailVerificationRedirect] is a [RedirectWithToken], and
   /// [RedirectWithToken.token] can be used to complete the process.
@@ -69,7 +69,7 @@ abstract class AltogicState<T extends StatefulWidget> extends State<T> {
   void onEmailVerificationLink(
       BuildContext? context, EmailVerificationRedirect redirect) {}
 
-  /// This method is called when a password reset link is opened.
+  /// This method is called when a password reset link is launched.
   ///
   /// The [PasswordResetRedirect] is a [RedirectWithToken], and
   /// [RedirectWithToken.token] can be used to complete the process.
@@ -87,7 +87,7 @@ abstract class AltogicState<T extends StatefulWidget> extends State<T> {
   void onPasswordResetLink(
       BuildContext? context, PasswordResetRedirect redirect) {}
 
-  /// This method is called when an OAuth provider link is opened.
+  /// This method is called when an OAuth provider link is launched.
   ///
   /// The [OauthRedirect] is a [RedirectWithToken], and
   /// [RedirectWithToken.token] can be used to complete the process.
@@ -103,7 +103,7 @@ abstract class AltogicState<T extends StatefulWidget> extends State<T> {
   /// get auth grant on that page.
   void onOauthProviderLink(BuildContext? context, OauthRedirect redirect) {}
 
-  /// This method is called when an email change link is opened.
+  /// This method is called when an email change link is launched.
 
   /// If the [Redirect.status] is 200, the email has been successfully changed.
 
@@ -146,7 +146,7 @@ abstract class AltogicState<T extends StatefulWidget> extends State<T> {
   /// [Redirect] instance if the deep link (on the initial link in the web)
   /// is Altogic redirect link.
   ///
-  /// It also returns null if the application is not opened by the deep link.
+  /// It also returns null if the application is not launched by the deep link.
   static Future<Redirect?> get applicationInitialRedirect async =>
       Redirect._fromRoute((await AppLinks().getInitialAppLink()).toString());
 }
@@ -222,7 +222,7 @@ enum RedirectAction {
 
 /// Redirect action.
 ///
-/// Redirect is used to hold information about the link that opened the application. Redirect is created from the link.
+/// Redirect is used to hold information about the link that launched the application. Redirect is created from the link.
 abstract class Redirect {
   Redirect._fromUri(Uri uri)
       : url = uri.toString(),
@@ -253,19 +253,19 @@ abstract class Redirect {
     return null;
   }
 
-  /// Raw url of the link that opened the application.
+  /// Raw url of the link that launched the application.
   final String url;
   final Map<String, dynamic> _queryParameters;
 
-  /// Action of the link that opened the application.
+  /// Action of the link that launched the application.
   RedirectAction get action => RedirectAction.values.firstWhere(
       (e) => e.actionName == _queryParameters['action'],
       orElse: () => RedirectAction.magicLink);
 
-  /// Error message of the link that opened the application.
+  /// Error message of the link that launched the application.
   String? get error => _queryParameters['error'] as String?;
 
-  /// Status of the link that opened the application.
+  /// Status of the link that launched the application.
   /// Status can be between 200-599
   String get status => _queryParameters['status'] as String;
 }
@@ -274,7 +274,7 @@ abstract class Redirect {
 class RedirectWithToken extends Redirect {
   RedirectWithToken._(Uri url) : super._fromUri(url);
 
-  /// access_token parameter of the link that opened the application.
+  /// access_token parameter of the link that launched the application.
   String get token => _queryParameters['access_token'] as String;
 }
 
@@ -283,32 +283,32 @@ abstract class RedirectToGetAuth extends RedirectWithToken {
 }
 
 /// Oauth redirect is used to hold information about the link that
-/// opened the application. Oauth redirect is created from the link.
+/// launched the application. Oauth redirect is created from the link.
 class OauthRedirect extends RedirectToGetAuth {
   OauthRedirect._(Uri url) : super._(url);
 }
 
 /// Magic link redirect is used to hold information about the link that
-/// opened the application. Magic link redirect is created from the link.
+/// launched the application. Magic link redirect is created from the link.
 class MagicLinkRedirect extends RedirectToGetAuth {
   MagicLinkRedirect._(Uri url) : super._(url);
 }
 
 /// Email verification redirect is used to hold information about the link that
-/// opened the application. Email verification redirect is created from the
+/// launched the application. Email verification redirect is created from the
 /// link.
 class EmailVerificationRedirect extends RedirectToGetAuth {
   EmailVerificationRedirect._(Uri url) : super._(url);
 }
 
 /// Password reset redirect is used to hold information about the link that
-/// opened the application. Password reset redirect is created from the link.
+/// launched the application. Password reset redirect is created from the link.
 class PasswordResetRedirect extends RedirectWithToken {
   PasswordResetRedirect._(Uri url) : super._(url);
 }
 
 /// Change email redirect is used to hold information about the link that
-/// opened the application. Change email redirect is created from the link.
+/// launched the application. Change email redirect is created from the link.
 class ChangeEmailRedirect extends Redirect {
   ChangeEmailRedirect._(Uri url) : super._fromUri(url);
 }

@@ -1,4 +1,4 @@
-## 0.0.9+14
+## 0.0.9+15
 
 - Bug fixes
 - ``README.md`` updated.
@@ -6,7 +6,7 @@
 
 ## 0.0.9+10
 
-- ``AltogicClient.restoreLocalAuthSession`` no longer restore session from local if the application opened with deep link.
+- ``AltogicClient.restoreLocalAuthSession`` no longer restore session from local if the application launched with deep link.
 - `AltogicClient.auth` now returns ``FlutterAuthManager`` that implements `AuthManager`.
 - ``AuthManager.signInWithProvider`` now opens the provider's sign in page automatically.
 - ``ClientOptions`` implementation is added.

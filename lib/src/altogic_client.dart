@@ -74,7 +74,7 @@ class AltogicClient extends dart.AltogicClient {
   /// In Flutter apps, restoreLocalAuthSession restores the user session from
   /// local storage.
   ///
-  /// If a deep link opened the application and there is an access grant, this
+  /// If a deep link launched the application and there is an access grant, this
   /// method ignores the local session.
   @override
   Future<void> restoreAuthSession() async {
