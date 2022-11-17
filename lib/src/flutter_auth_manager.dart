@@ -18,7 +18,7 @@ class FlutterAuthManager extends AuthManager {
   /// [completer] is the completer to complete when the URL launching is done.
   @override
   String signInWithProvider(String provider, [Completer<bool>? completer]) {
-    var link = signInWithProvider(provider);
+    var link = super.signInWithProvider(provider);
     launchUrl(Uri.parse(link),
             webOnlyWindowName: '_self',
             mode: LaunchMode.externalApplication,

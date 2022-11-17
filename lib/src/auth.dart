@@ -222,7 +222,8 @@ enum RedirectAction {
 
 /// Redirect action.
 ///
-/// Redirect is used to hold information about the link that launched the application. Redirect is created from the link.
+/// Redirect is used to hold information about the link that launched the
+/// application. Redirect is created from the link.
 abstract class Redirect {
   Redirect._fromUri(Uri uri)
       : url = uri.toString(),
