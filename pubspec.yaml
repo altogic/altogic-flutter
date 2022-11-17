@@ -7,7 +7,8 @@ environment:
   sdk: '>=2.17.0 <3.0.0'
 
 dependencies:
-  altogic_dart: ^0.0.9+10
+  altogic_dart:
+    path: ../altogic-dart
   app_links: ^3.3.0
 
   flutter:

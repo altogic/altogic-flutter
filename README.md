@@ -162,5 +162,5 @@ Think you’ve found a bug? Please, send us an email support@altogic.com or open
 ## Support / Feedback
 
 For issues with, questions about, feedback for the client library, or want to see a new feature please, send us an email
-support@altogic.com or reach out to our community forums
-https://community.altogic.com
+(support@altogic.com)[mailto://support@altogic.com] or reach out to our [community forums](https://community.altogic.com)
+
